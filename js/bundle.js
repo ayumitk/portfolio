@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/js/formcarry.js":
+/*!*****************************!*\
+  !*** ./src/js/formcarry.js ***!
+  \*****************************/
+/*! exports provided: formcarry */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"formcarry\", function() { return formcarry; });\n/*-------------------------------------------------------------------------------\r\n\tformcarry.\r\n-------------------------------------------------------------------------------*/\n\nfunction formcarry() {\n\tconsole.log('TODO: formcarry');\n}\n\n//# sourceURL=webpack:///./src/js/formcarry.js?");
+
+/***/ }),
+
 /***/ "./src/js/index.js":
 /*!*************************!*\
   !*** ./src/js/index.js ***!
@@ -94,7 +106,7 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _svg_include__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./svg_include */ \"./src/js/svg_include.js\");\n// import 文を使って sub.js ファイルを読み込む。\n//import {hello} from './sub';\n\n// sub.jsに定義されたJavaScriptを実行する。\n//hello();\n\n\n\nObject(_svg_include__WEBPACK_IMPORTED_MODULE_0__[\"svgInclude\"])();\n\ndocument.addEventListener('DOMContentLoaded', function () {\n\n\t/*-------------------------------------------------------------------------------\r\n     SVG Include\r\n -------------------------------------------------------------------------------*/\n\tvar httpRequest = void 0;\n\tvar svgFile = 'images/symbol-defs.svg';\n\n\tif (window.XMLHttpRequest) {\n\t\t// Mozilla, Safari, ...\n\t\thttpRequest = new XMLHttpRequest();\n\t} else if (window.ActiveXObject) {\n\t\t// IE\n\t\ttry {\n\t\t\thttpRequest = new ActiveXObject(\"Msxml2.XMLHTTP\");\n\t\t} catch (e) {\n\t\t\ttry {\n\t\t\t\thttpRequest = new ActiveXObject(\"Microsoft.XMLHTTP\");\n\t\t\t} catch (e) {}\n\t\t}\n\t}\n\n\tif (!httpRequest) {\n\t\talert('Giving up :( Cannot create an XMLHTTP instance');\n\t\treturn false;\n\t}\n\n\thttpRequest.open('GET', svgFile, true);\n\n\thttpRequest.onload = function () {\n\t\tif (httpRequest.status >= 200 && httpRequest.status < 400) {\n\t\t\t// Success!\n\t\t\tvar div = document.createElement(\"div\");\n\t\t\tdiv.innerHTML = httpRequest.responseText;\n\t\t\tdocument.body.insertBefore(div, document.body.childNodes[0]);\n\t\t} else {\n\t\t\t// We reached our target server, but it returned an error\n\t\t};\n\t};\n\n\thttpRequest.onerror = function () {\n\t\t// There was a connection error of some sort\n\t};\n\n\thttpRequest.send();\n\n\t/*-------------------------------------------------------------------------------\r\n \tformcarry.\r\n -------------------------------------------------------------------------------*/\n});\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _svg_include__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./svg_include */ \"./src/js/svg_include.js\");\n/* harmony import */ var _formcarry__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./formcarry */ \"./src/js/formcarry.js\");\n// SVG Include\n\nObject(_svg_include__WEBPACK_IMPORTED_MODULE_0__[\"svgInclude\"])();\n\n// Formcarry\n\nObject(_formcarry__WEBPACK_IMPORTED_MODULE_1__[\"formcarry\"])();\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
