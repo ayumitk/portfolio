@@ -1,20 +1,9 @@
-// import 文を使って sub.js ファイルを読み込む。
-//import {hello} from './sub';
+/*-------------------------------------------------------------------------------
+	SVG Include
+-------------------------------------------------------------------------------*/
 
-// sub.jsに定義されたJavaScriptを実行する。
-//hello();
+export function svgInclude() {
 
-
-import {svgInclude} from './svg_include';
-svgInclude();
-
-
-
-document.addEventListener('DOMContentLoaded', function () {
-
-	/*-------------------------------------------------------------------------------
-	    SVG Include
-	-------------------------------------------------------------------------------*/
 	let httpRequest;
 	const svgFile = 'images/symbol-defs.svg';
 
@@ -54,9 +43,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	httpRequest.send();
 
-
-	/*-------------------------------------------------------------------------------
-		formcarry.
-	-------------------------------------------------------------------------------*/
-
-});
+}

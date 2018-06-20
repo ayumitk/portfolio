@@ -20,7 +20,7 @@
         5. About Styles
         6. Experience Styles
         7. Education Styles
-        8. Project Styles
+        8. Work Styles
         9. Skills Styles
         10. Contact Styles
         11. Optional Section Styles
@@ -34,7 +34,7 @@
 */
 
 // Define base and accent colors
-$base-color: #3498db;
+$base-color: #ce2573;
 $base-color-hover: darken($base-color, 10%);
 // Define background colors
 $background: #fff;
@@ -85,6 +85,19 @@ body {
 		overflow: hidden;
 		z-index: -1;
 	}
+}
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Work Sans', sans-serif;
+}
+h1{
+	font-weight: 900;
+}
+h2{
+	font-weight: 700;
+}
+h3, h4, h5{
+	font-weight: 500;
 }
 
 // No JS styles
@@ -292,8 +305,6 @@ footer {
 	position: relative;
 	display: inline-block;
 	font-size: 2em;
-	font-weight: 300;
-	margin: 0 0 30px 0;
 	&:after {
 		position: absolute;
 		content: '';
@@ -322,10 +333,11 @@ footer {
 	height: 100vh;
 	min-height: 500px;
 	max-height: 1080px;
-	background: url(../images/lead-bg.jpg);
-	background-size: cover;
 	padding: 15px;
 	overflow: hidden;
+	background: linear-gradient(270deg, #fd03d2, #fd4703, #fded03, #03f0fd);
+    background-size: 400%;
+	animation: gradFade 20s ease infinite;
 }
 
 #lead-content {
@@ -335,23 +347,16 @@ footer {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;
-	h1,
-	h2 {
-		margin: 0;
-	}
 	h1 {
 		color: #fff;
-		font-weight: 900;
 		font-size: 5em;
-		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		line-height: 0.9em;
 	}
 	h2 {
-		color: lighten($base-color, 25%);
+		color: rgba(255,255,255,0.8);
 		font-weight: 500;
-		font-size: 2.25em;
-		margin-bottom: 15px;
+		font-size: 2em;
 	}
 }
 
@@ -363,8 +368,20 @@ footer {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background: rgba($base-color-hover, 0.8);
 	z-index: 1;
+	background: url(../images/lead-bg.jpg);
+	background-size: cover;
+	opacity: 0.2;
+}
+
+@keyframes gradFade {
+	0%,
+	100%{
+		background-position:0 50%
+	}
+	50%{
+		background-position:100% 50%
+	}
 }
 
 #lead-down {
@@ -383,7 +400,7 @@ footer {
 		width: 35px;
 		height: 35px;
 		border-radius: 50%;
-		border: 3px solid lighten($base-color, 25%);
+		border: 3px solid rgba(255,255,255,0.8);
 		text-align: center;
 	}
 	i {
@@ -413,14 +430,13 @@ footer {
 */
 
 #about {
-	padding: 75px 15px;
-	border-bottom: 1px solid $border;
+	padding: 100px 0 200px 0;
+	background: $heading;
 	h2 {
-		color: $heading;
+		color: #FFF;
 	}
 	p {
-		color: $text;
-		margin: 0;
+		color: rgba(255,255,255,0.8);
 	}
 }
 
@@ -579,11 +595,11 @@ footer {
 
 /*
     -------------------------------
-    ----- 8. Project Styles -----
+    ----- 8. work Styles -----
     -------------------------------
 */
 
-#projects {
+#work {
 	padding: 50px 15px;
 	border-bottom: 1px solid $border;
 	text-align: center;
@@ -593,7 +609,7 @@ footer {
 	}
 }
 
-.project {
+.work {
 	position: relative;
 	max-width: 900px;
 	margin: 0 auto 30px auto;
@@ -602,11 +618,11 @@ footer {
 	border-radius: 4px;
 }
 
-.project-image {
+.work-image {
 	float: left;
 }
 
-.project-info {
+.work-info {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -626,7 +642,7 @@ footer {
 }
 
 .no-image {
-	.project-info {
+	.work-info {
 		position: relative;
 		margin: 0;
 		padding: 30px 15px;
@@ -634,7 +650,7 @@ footer {
 	}
 }
 
-#more-projects {
+#more-work {
 	display: none;
 }
 
@@ -645,27 +661,22 @@ footer {
 */
 
 #skills {
-	padding: 50px 15px;
-	text-align: center;
-	h2 {
-		color: $heading;
-		margin-bottom: 50px;
+	padding: 0 0 100px 0;
+	.skill-icon svg{
+		fill:$heading;
+		height: 80px;
+		width: 80px;
 	}
-	ul {
-		display: block;
-		margin: 0 auto;
-		padding: 0;
-		max-width: 800px;
+	h2{
+		font-size: 1.5rem;
+		color:$heading;
 	}
-	li {
-		display: inline-block;
-		margin: 7px;
-		padding: 5px 10px;
-		color: $heading;
-		background: darken($background-alt, 5%);
-		list-style: none;
-		cursor: default;
-		font-size: 1.2em;
+	h3{
+		color: $base-color;
+		font-size: 1.1rem;
+	}
+	.card{
+		margin-top: -125px;
 	}
 }
 
@@ -682,7 +693,6 @@ footer {
 	h2 {
 		margin: 0 0 15px 0;
 		color: #fff;
-		font-weight: 500;
 	}
 }
 
@@ -876,10 +886,10 @@ footer {
 			float: none;
 		}
 	}
-	.project-image {
+	.work-image {
 		display: none;
 	}
-	.project-info {
+	.work-info {
 		position: relative;
 		margin: 0;
 		padding: 30px 15px;
