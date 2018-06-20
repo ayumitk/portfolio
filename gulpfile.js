@@ -25,7 +25,7 @@ const imagemin = require('gulp-imagemin');
 // --------------------------------------------------------------------
 
 // Local Server + Watch
-gulp.task('server', ['webpack', 'sass', 'images', 'html'], () => {
+gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
 
 	browserSync.init({
 		server: "./"
