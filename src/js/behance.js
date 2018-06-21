@@ -13,7 +13,7 @@ export function behanceProject() {
 	console.log(projectID);
 	// const apiKey = 'W5wzRII9xhBnTPVkVYJRd4G80OwelH3y';
 	const apiKey = '5AGtA6uAQot7srZlfWYtj1kZUXSuHx0S';
-	const behanceProjectAPI = 'https://www.behance.net/v2/projects/' + projectID + '?api_key=' + apiKey;
+	const behanceProjectAPI = 'http://www.behance.net/v2/projects/' + projectID + '?api_key=' + apiKey;
 
 	const sessionName = 'behanceProject_' + projectID;
 
