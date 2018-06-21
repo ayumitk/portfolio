@@ -17,47 +17,48 @@ export function behanceProject() {
 
 	const sessionName = 'behanceProject_' + projectID;
 
+	///-------
 
 
 
 	////-------------
 
-	let httpRequest;
+	// let httpRequest;
 
-	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
-		httpRequest = new XMLHttpRequest();
-	} else if (window.ActiveXObject) { // IE
-		try {
-			httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
-		} catch (e) {
-			try {
-				httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
-			} catch (e) {}
-		}
-	}
+	// if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+	// 	httpRequest = new XMLHttpRequest();
+	// } else if (window.ActiveXObject) { // IE
+	// 	try {
+	// 		httpRequest = new ActiveXObject('Msxml2.XMLHTTP');
+	// 	} catch (e) {
+	// 		try {
+	// 			httpRequest = new ActiveXObject('Microsoft.XMLHTTP');
+	// 		} catch (e) {}
+	// 	}
+	// }
 
-	if (!httpRequest) {
-		alert('Giving up :( Cannot create an XMLHTTP instance');
-		return false;
-	}
+	// if (!httpRequest) {
+	// 	alert('Giving up :( Cannot create an XMLHTTP instance');
+	// 	return false;
+	// }
 
-	httpRequest.open('GET', behanceProjectAPI, true);
+	// httpRequest.open('GET', behanceProjectAPI, true);
 
-	httpRequest.onload = function () {
-		if (httpRequest.status >= 200 && httpRequest.status < 400) {
-			// Success!
-			const data = JSON.parse(request.responseText);
-			console.log(data);
-		} else {
-			// We reached our target server, but it returned an error
-		};
-	};
+	// httpRequest.onload = function () {
+	// 	if (httpRequest.status >= 200 && httpRequest.status < 400) {
+	// 		// Success!
+	// 		const data = JSON.parse(request.responseText);
+	// 		console.log(data);
+	// 	} else {
+	// 		// We reached our target server, but it returned an error
+	// 	};
+	// };
 
-	httpRequest.onerror = function () {
-		// There was a connection error of some sort
-	};
+	// httpRequest.onerror = function () {
+	// 	// There was a connection error of some sort
+	// };
 
-	httpRequest.send();
+	// httpRequest.send();
 
 	//--------------------------------
 

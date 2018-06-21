@@ -11,15 +11,26 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	    crossorigin="anonymous">
 
-	<!-- jQuery -->
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+
+
+	<!-- <script src="js/bundle.js"></script> -->
 </head>
 
 <body>
 
 	<div id="behance-project"></div>
 
-	<script src="js/bundle.js"></script>
+	<script>
+		const userID = 'ayumitk';
+		const apiKey = '5AGtA6uAQot7srZlfWYtj1kZUXSuHx0S';
+
+
+		function myCallbackFunction(data) {
+			console.log(data.project);
+		}
+	</script>
+	<script type="text/javascript" src="https://www.behance.net/v2/projects/59135529?api_key=5AGtA6uAQot7srZlfWYtj1kZUXSuHx0S&callback=myCallbackFunction"></script>
+
 
 </body>
 
