@@ -31,11 +31,7 @@ gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
 
 	browserSync.init({
 		server: "./",
-		// cors: true
-		middleware: function (req, res, next) {
-			res.setHeader('Access-Control-Allow-Origin', 'ayumitk.github.io');
-			next();
-		}
+		cors: true
 	});
 
 	gulp.watch("src/scss/*.scss", ['sass']);
