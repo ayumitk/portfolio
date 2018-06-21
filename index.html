@@ -163,10 +163,12 @@
 						<p>
 							Visual Studio Code
 							<br> Bootstrap
+							<br> Node.js
 							<br> React
-							<br> Angular
+							<br> AngularJS
 							<br> Gulp
 							<br> Webpack
+							<br> npm
 							<br> Git
 							<br> Wordpress
 						</p>
@@ -183,36 +185,39 @@
 
 			<div id="behance" class="row"></div>
 
-			<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
-
 			<script>
 				(function () {
 					var userID = 'ayumitk';
 					var apiKey = 'W5wzRII9xhBnTPVkVYJRd4G80OwelH3y';
 					var perPage = 6;
-					var behanceProjectAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey +
+					var behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey +
 						'&per_page=' + perPage;
 
-					if (sessionStorage.getItem('behanceProject')) {
+					if (sessionStorage.getItem('behanceUser')) {
 						setBehance();
 					} else {
-						$.getJSON(behanceProjectAPI, function (project) {
+						$.getJSON(behanceUserAPI, function (project) {
 							var data = JSON.stringify(project);
-							sessionStorage.setItem('behanceProject', data);
+							sessionStorage.setItem('behanceUser', data);
 							setBehance();
 						});
 					};
 
 					function setBehance() {
-						var projectData = JSON.parse(sessionStorage.getItem('behanceProject'));
-						projectData = projectData['projects'];
+						var behanceData = JSON.parse(sessionStorage.getItem('behanceUser'))['projects'];
+						//console.log(behanceData);
+
+						var projectTitle = ['SoySauce', 'OliveCode', 'petRibbon', 'Anysense Inc.', 'TERRASS'];
+
 						var resultHTML = '';
-						$.each(projectData, function (i, item) {
+						$.each(behanceData, function (i, item) {
 							resultHTML +=
 								`<div class="col-4">
-									<h3>${projectData[i].name}</h3>
-									<div><img src="${projectData[i].covers[404]}"></div>
-									<p>${projectData[i].fields}</p>
+									<a href="work.html?projectID=${behanceData[i].id}">
+										<h3>${projectTitle[i]}</h3>
+										<div><img src="${behanceData[i].covers[404]}"></div>
+										<p>${behanceData[i].fields}</p>
+									</a>
 								</div>`;
 						});
 						$('#behance').html(resultHTML);
@@ -233,40 +238,54 @@
 	<div id="experience" class="background-alt">
 		<h2 class="heading">Experience</h2>
 		<div id="experience-timeline">
-			<div data-date="September 2015 – September 2016">
-				<h3>Employer Name</h3>
-				<h4>Job Title</h4>
+			<div data-date="September 2017 - present">
+				<h3>PetRibbon Inc.</h3>
+				<h4>Lead Creative Director</h4>
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in iaculis ex. Etiam volutpat laoreet urna. Morbi ut tortor
 					nec nulla commodo malesuada sit amet vel lacus. Fusce eget efficitur libero. Morbi dapibus porta quam laoreet placerat.
 				</p>
 			</div>
 
-			<div data-date="September 2015 – September 2016">
-				<h3>Employer Name</h3>
-				<h4>Job Title</h4>
+			<div data-date="September 2015 - present">
+				<h3>Self-Employed</h3>
+				<h4>UI/UX Designer, Front-end Developer</h4>
 				<p>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in iaculis ex. Etiam volutpat laoreet urna. Morbi ut tortor
 					nec nulla commodo malesuada sit amet vel lacus. Fusce eget efficitur libero. Morbi dapibus porta quam laoreet placerat.
 				</p>
 			</div>
 
-			<div data-date="September 2015 – September 2016">
-				<h3>Employer Name</h3>
-				<h4>Job Title</h4>
+			<div data-date="September 2015 - September 2016">
+				<h3>Anysense Inc.</h3>
+				<h4>Art Director</h4>
 				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in iaculis ex. Etiam volutpat laoreet urna. Morbi ut tortor
-					nec nulla commodo malesuada sit amet vel lacus. Fusce eget efficitur libero. Morbi dapibus porta quam laoreet placerat.
+					Startup company.
 				</p>
 			</div>
+
+			<div data-date="September 2015 - September 2016">
+				<h3>Japanizm Inc.</h3>
+				<h4>Lead Web Designer</h4>
+				<p>
+					Marketing agency. Created various industories websites.
+				</p>
+			</div>
+
+			<div data-date="September 2015 - September 2016">
+				<h3>Slashworks Inc.</h3>
+				<h4>Junior Web Designer</h4>
+			</div>
+
 		</div>
 	</div>
 	<!-- End #experience -->
 
 	<div id="education">
 		<h2 class="heading">Education</h2>
+
 		<div class="education-block">
-			<h3>University of Ottawa</h3>
+			<h3>ITD Canada</h3>
 			<span class="education-date">Sept 2016 - Sept 2017</span>
 			<h4>Bachelor of Science in Computer Science</h4>
 			<p>
@@ -276,23 +295,6 @@
 		</div>
 		<!-- End .education-block -->
 
-		<div class="education-block">
-			<h3>University of Ottawa</h3>
-			<span class="education-date">Sept 2016 - Sept 2017</span>
-			<h4>Bachelor of Science in Computer Science</h4>
-			<ul>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				</li>
-				<li>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-				</li>
-			</ul>
-		</div>
-		<!-- End .education-block -->
 	</div>
 	<!-- End #education -->
 

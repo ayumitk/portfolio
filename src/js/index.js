@@ -5,3 +5,7 @@ svgInclude();
 // Formcarry
 import {formcarry} from './formcarry';
 formcarry();
+
+// Behance Project
+import {behanceProject} from './behance';
+behanceProject();

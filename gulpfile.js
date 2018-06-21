@@ -24,11 +24,14 @@ const imagemin = require('gulp-imagemin');
 // Tasks
 // --------------------------------------------------------------------
 
+
+
 // Local Server + Watch
 gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
 
 	browserSync.init({
-		server: "./"
+		server: "./",
+		cors: true
 	});
 
 	gulp.watch("src/scss/*.scss", ['sass']);
@@ -49,7 +52,7 @@ gulp.task('webpack', function () {
 
 // Copy HTML
 gulp.task('html', function () {
-	gulp.src('./src/index.html')
+	gulp.src('./src/*.html')
 		.pipe(gulp.dest('./'))
 
 		.pipe(browserSync.reload({
