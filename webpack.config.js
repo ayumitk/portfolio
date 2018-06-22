@@ -4,12 +4,22 @@ module.exports = {
 	mode: "development",
 
 	// メインのJS
-	entry: `./src/js/index.js`,
+	entry: {
+		index: './src/js/index.js',
+		work: './src/js/work.js'
+	},
 
 	// ファイルの出力設定
 	output: {
 		// 出力ファイル名
-		filename: "bundle.js"
+		filename: "[name].bundle.js"
+	},
+
+	optimization: {
+		splitChunks: {
+			name: 'common',
+			chunks: 'initial',
+		}
 	},
 
 	module: {

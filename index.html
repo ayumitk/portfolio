@@ -12,18 +12,18 @@
 
 	<!-- Favicon -->
 	<!-- iOS Safari -->
-	<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
+	<!-- <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png"> -->
 	<!-- Android Chrome -->
-	<link rel="manifest" href="images/favicons/site.webmanifest">
+	<!-- <link rel="manifest" href="images/favicons/site.webmanifest"> -->
 	<!-- macOS Safari -->
-	<link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<!-- <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5"> -->
 	<!-- Edge and IE 12 -->
-	<meta name="msapplication-TileColor" content="#da532c">
-	<meta name="msapplication-config" content="images/favicons/browserconfig.xml">
+	<!-- <meta name="msapplication-TileColor" content="#da532c"> -->
+	<!-- <meta name="msapplication-config" content="images/favicons/browserconfig.xml"> -->
 	<!-- Classic desktop browsers -->
-	<link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
+	<!-- <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-	<link rel="shortcut icon" href="images/favicons/favicon.ico">
+	<link rel="shortcut icon" href="images/favicons/favicon.ico"> -->
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
@@ -183,49 +183,11 @@
 		<h2 class="heading">Work</h2>
 		<div class="container">
 
-			<div id="behance" class="row"></div>
+			<div id="behance-list" class="row"></div>
 
-			<script>
-				(function () {
-					var userID = 'ayumitk';
-					var apiKey = 'W5wzRII9xhBnTPVkVYJRd4G80OwelH3y';
-					var perPage = 6;
-					var behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey +
-						'&per_page=' + perPage;
-
-					if (sessionStorage.getItem('behanceUser')) {
-						setBehance();
-					} else {
-						$.getJSON(behanceUserAPI, function (project) {
-							var data = JSON.stringify(project);
-							sessionStorage.setItem('behanceUser', data);
-							setBehance();
-						});
-					};
-
-					function setBehance() {
-						var behanceData = JSON.parse(sessionStorage.getItem('behanceUser'))['projects'];
-						//console.log(behanceData);
-
-						var projectTitle = ['SoySauce', 'OliveCode', 'petRibbon', 'Anysense Inc.', 'TERRASS'];
-
-						var resultHTML = '';
-						$.each(behanceData, function (i, item) {
-							resultHTML +=
-								`<div class="col-4">
-									<a href="work.html?projectID=${behanceData[i].id}">
-										<h3>${projectTitle[i]}</h3>
-										<div><img src="${behanceData[i].covers[404]}"></div>
-										<p>${behanceData[i].fields}</p>
-									</a>
-								</div>`;
-						});
-						$('#behance').html(resultHTML);
-					};
-
-				})();
-			</script>
-
+			<p id="power" class="power-by">Powered by
+				<a href="http://www.behance.net/" target="_blank">Behance</a>
+			</p>
 		</div>
 	</div>
 	<!-- End #projects -->
@@ -302,7 +264,7 @@
 		<h2>Get in Touch</h2>
 		<div id="contact-form">
 
-			<form action="https://formcarry.com/s/SyJGIGvZ7" method="POST" accept-charset="UTF-8" id="ajaxForm">
+			<form accept-charset="UTF-8" id="ajaxForm">
 				<input type="text" name="name" placeholder="Your Name">
 				<input type="email" name="email" placeholder="Your Email">
 				<textarea type="textarea" name="message" placeholder="Message"></textarea>
@@ -315,11 +277,15 @@
 			<!-- TODO:move script to js file -->
 			<script>
 				$(function () {
-					$(".ajaxForm").submit(function (e) {
+					$("#ajaxForm").submit(function (e) {
 						e.preventDefault();
-						var href = $(this).attr('action');
-						var formMessage = $('#form-success');
+						var href = 'https://formcarry.com/s/SyJGIGvZ7';
+						var formMessage = $('#form-message');
 						formMessage.fadeOut();
+
+						var data = $(this).serialize();
+						console.log(data);
+
 						$.ajax({
 							type: "POST",
 							dataType: "json",
@@ -401,7 +367,7 @@
 	    crossorigin="anonymous"></script>
 
 	<script src="js/scripts.min.js"></script>
-	<script src="js/bundle.js"></script>
+	<script src="js/index.bundle.js"></script>
 </body>
 
 </html>

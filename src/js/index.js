@@ -1,11 +1,15 @@
 // SVG Include
-import {svgInclude} from './svg_include';
+import {
+	svgInclude
+} from './_svg';
 svgInclude();
 
 // Formcarry
-import {formcarry} from './formcarry';
-formcarry();
+// import {
+// 	formcarry
+// } from './_formcarry';
+// formcarry();
 
-// Behance Project
-import {behanceProject} from './behance';
-behanceProject();
+// Behance User
+import {behanceUser} from './_behance';
+behanceUser();
