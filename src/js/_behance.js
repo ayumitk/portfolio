@@ -8,7 +8,7 @@ export function behanceUser() {
 	// Define Variables
 	const userID = 'ayumitk';
 	const perPage = 6;
-	const behanceUserAPI = 'http://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage + '&callback=callbackUser';
+	const behanceUserAPI = 'https://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage + '&callback=callbackUser';
 	const sessionName = 'projectUser';
 	const projectTitle = ['SoySauce', 'OliveCode', 'PetRibbon', 'Anysense Inc.', 'TERRASS'];
 
