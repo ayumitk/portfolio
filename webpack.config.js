@@ -5,6 +5,7 @@ module.exports = {
 
 	// メインのJS
 	entry: {
+		common: './src/js/common.js',
 		index: './src/js/index.js',
 		work: './src/js/work.js'
 	},

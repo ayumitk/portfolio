@@ -1,6 +1,65 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"index": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
 /******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -79,36 +138,21 @@
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
 /******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/index.js");
+/******/
+/******/ 	// add entry module to deferred list
+/******/ 	deferredModules.push(["./src/js/index.js","common"]);
+/******/ 	// run deferred modules when ready
+/******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./src/js/_behance.js":
-/*!****************************!*\
-  !*** ./src/js/_behance.js ***!
-  \****************************/
-/*! exports provided: behanceUser, behanceProject */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"behanceUser\", function() { return behanceUser; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"behanceProject\", function() { return behanceProject; });\nvar apiKey = '5AGtA6uAQot7srZlfWYtj1kZUXSuHx0S';\n\n/*-------------------------------------------------------------------------------\r\n\tBehance User\r\n-------------------------------------------------------------------------------*/\nfunction behanceUser() {\n\n  // Define Variables\n  var userID = 'ayumitk';\n  var perPage = 6;\n  var behanceUserAPI = 'https://www.behance.net/v2/users/' + userID + '/projects?callback=?&api_key=' + apiKey + '&per_page=' + perPage + '&callback=callbackUser';\n  var sessionName = 'projectUser';\n  var projectTitle = ['SoySauce', 'OliveCode', 'PetRibbon', 'Anysense Inc.', 'TERRASS'];\n\n  // If sessionStorage has a json data, use it.\n  // If not, get data form Behance API and set it to sessionStorage.\n  // Behance limits the API by 150 requests per hour.\n  if (sessionStorage.getItem(sessionName)) {\n\n    projectList();\n  } else {\n    // Create <script> tag\n    var script = document.createElement('script');\n    script.type = 'text/javascript';\n    script.src = behanceUserAPI;\n    document.getElementsByTagName('head')[0].appendChild(script);\n\n    // Callback function\n    var callback_user = function callback_user(data) {\n      // Set data to sessionStorage\n      var sessionData = JSON.stringify(data.projects);\n      sessionStorage.setItem(sessionName, sessionData);\n\n      projectList();\n    };\n\n    // to use as a global function\n    window.callbackUser = callback_user;\n  }\n\n  function projectList() {\n    // Get json data\n    var behanceData = JSON.parse(sessionStorage.getItem(sessionName));\n\n    var resultHTML = '';\n\n    for (var i = 0, len = behanceData.length; i < len; i++) {\n      resultHTML += '\\n\\t\\t\\t\\t<div class=\"col-4\">\\n\\t\\t\\t\\t\\t<a href=\"work.html?projectID=' + behanceData[i].id + '\">\\n\\t\\t\\t\\t\\t\\t<div><img src=\"' + behanceData[i].covers[404] + '\"></div>\\n\\t\\t\\t\\t\\t\\t<h3>' + projectTitle[i] + '</h3>\\n\\t\\t\\t\\t\\t\\t<p>' + behanceData[i].fields + '</p>\\n\\t\\t\\t\\t\\t</a>\\n\\t\\t\\t\\t</div>';\n    }\n\n    // // Set all project contents to html\n    document.getElementById('behance-list').innerHTML = resultHTML;\n  }\n}\n\n/*-------------------------------------------------------------------------------\r\n\tBehance Project\r\n-------------------------------------------------------------------------------*/\nfunction behanceProject() {\n\n  // Define Variables\n  var url = location.search;\n  var projectID = '59135529';\n  if (url.includes('?projectID=')) {\n    projectID = url.replace('?projectID=', '');\n  }\n\n  var behanceProjectAPI = 'https://www.behance.net/v2/projects/' + projectID + '?api_key=' + apiKey + '&callback=callbackProject';\n  var sessionName = 'behanceProject_' + projectID;\n\n  // If sessionStorage has a json data, use it.\n  // If not, get data form Behance API and set it to sessionStorage.\n  // Behance limits the API by 150 requests per hour.\n  if (sessionStorage.getItem(sessionName)) {\n\n    projectContents();\n  } else {\n    // Create <script> tag\n    var script = document.createElement('script');\n    script.type = 'text/javascript';\n    script.src = behanceProjectAPI;\n    document.getElementsByTagName('head')[0].appendChild(script);\n\n    // Callback function\n    var callback_project = function callback_project(data) {\n      // Set data to sessionStorage\n      var sessionData = JSON.stringify(data.project);\n      sessionStorage.setItem(sessionName, sessionData);\n\n      projectContents();\n    };\n\n    // to use as a global function\n    window.callbackProject = callback_project;\n  }\n\n  function projectContents() {\n    // Get json data\n    var behanceData = JSON.parse(sessionStorage.getItem(sessionName));\n\n    var resultHTML = '';\n\n    // Title, Fields\n    resultHTML += '\\n\\t\\t\\t<h1>' + behanceData.name + '</h1>\\n\\t\\t\\t<p>' + behanceData.fields + '</p>';\n\n    // Tools\n    var tools = '';\n    for (var i = 0, len = behanceData.tools.length; i < len; i++) {\n      tools += '<li>' + behanceData.tools[i].title + '</li>';\n    }\n    resultHTML += '\\n\\t\\t\\t<ul>' + tools + '</ul>';\n\n    // Modules\n    var modules = '';\n    for (var _i = 0, _len = behanceData.modules.length; _i < _len; _i++) {\n      if (behanceData.modules[_i].type == 'image') {\n        modules += '<div><img src=\"' + behanceData.modules[_i].sizes[1400] + '\"></div>';\n      } else if (behanceData.modules[_i].type == 'text') {\n        modules += '' + behanceData.modules[_i].text;\n      }\n    }\n    resultHTML += '\\n\\t\\t\\t<div>' + modules + '</div>';\n\n    // Set all project contents to html\n    document.getElementById('behance-project').innerHTML = resultHTML;\n  }\n}\n\n//# sourceURL=webpack:///./src/js/_behance.js?");
-
-/***/ }),
-
-/***/ "./src/js/_svg.js":
-/*!************************!*\
-  !*** ./src/js/_svg.js ***!
-  \************************/
-/*! exports provided: svgInclude */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"svgInclude\", function() { return svgInclude; });\n/*-------------------------------------------------------------------------------\r\n\tSVG Include\r\n-------------------------------------------------------------------------------*/\n\nfunction svgInclude() {\n\n\tvar httpRequest = void 0;\n\tvar svgFile = 'images/symbol-defs.svg';\n\n\tif (window.XMLHttpRequest) {\n\t\t// Mozilla, Safari, ...\n\t\thttpRequest = new XMLHttpRequest();\n\t} else if (window.ActiveXObject) {\n\t\t// IE\n\t\ttry {\n\t\t\thttpRequest = new ActiveXObject(\"Msxml2.XMLHTTP\");\n\t\t} catch (e) {\n\t\t\ttry {\n\t\t\t\thttpRequest = new ActiveXObject(\"Microsoft.XMLHTTP\");\n\t\t\t} catch (e) {}\n\t\t}\n\t}\n\n\tif (!httpRequest) {\n\t\talert('Giving up :( Cannot create an XMLHTTP instance');\n\t\treturn false;\n\t}\n\n\thttpRequest.open('GET', svgFile, true);\n\n\thttpRequest.onload = function () {\n\t\tif (httpRequest.status >= 200 && httpRequest.status < 400) {\n\t\t\t// Success!\n\t\t\tvar div = document.createElement(\"div\");\n\t\t\tdiv.innerHTML = httpRequest.responseText;\n\t\t\tdocument.body.insertBefore(div, document.body.childNodes[0]);\n\t\t} else {\n\t\t\t// We reached our target server, but it returned an error\n\t\t};\n\t};\n\n\thttpRequest.onerror = function () {\n\t\t// There was a connection error of some sort\n\t};\n\n\thttpRequest.send();\n}\n\n//# sourceURL=webpack:///./src/js/_svg.js?");
-
-/***/ }),
 
 /***/ "./src/js/index.js":
 /*!*************************!*\
@@ -118,7 +162,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_svg */ \"./src/js/_svg.js\");\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n// SVG Include\n\nObject(_svg__WEBPACK_IMPORTED_MODULE_0__[\"svgInclude\"])();\n\n// Formcarry\n// import {\n// \tformcarry\n// } from './_formcarry';\n// formcarry();\n\n// Behance User\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_1__[\"behanceUser\"])();\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! smoothscroll-polyfill */ \"./node_modules/smoothscroll-polyfill/dist/smoothscroll.js\");\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var form_serialize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! form-serialize */ \"./node_modules/form-serialize/index.js\");\n/* harmony import */ var form_serialize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(form_serialize__WEBPACK_IMPORTED_MODULE_2__);\n// Behance projects list\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_0__[\"behanceUser\"])();\n\n/*-------------------------------------------------------------------------------\r\n    Smooth Scroll\r\n-------------------------------------------------------------------------------*/\n\n\nsmoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1___default.a.polyfill();\n\n// Scroll to section when nav is clicked\nvar navLinks = document.querySelectorAll('header a');\n\nArray.from(navLinks).forEach(function (el) {\n\n  el.addEventListener('click', function (e) {\n\n    e.preventDefault();\n\n    var heading = event.target.getAttribute('href');\n    document.querySelector(heading).scrollIntoView({\n      behavior: 'smooth'\n    });\n\n    // Hide the menu once clicked if mobile\n    if ($('header').hasClass('active')) {\n      $('header, body').removeClass('active');\n    }\n  });\n});\n\n// Scroll to top\ndocument.querySelector('#to-top').addEventListener('click', function (e) {\n  window.scroll({\n    top: 0,\n    left: 0,\n    behavior: 'smooth'\n  });\n});\n\n// Scroll to first element\ndocument.querySelector('#lead-down span').addEventListener('click', function (e) {\n  document.querySelector('#about').scrollIntoView({\n    behavior: 'smooth'\n  });\n});\n\n/*-------------------------------------------------------------------------------\r\n    Mobile Nav\r\n-------------------------------------------------------------------------------*/\n// Open mobile menu\ndocument.querySelector('#mobile-menu-open').addEventListener('click', function (e) {\n  document.querySelector('header, body').classList.add('active');\n});\n\n// Close mobile menu\ndocument.querySelector('#mobile-menu-close').addEventListener('click', function (e) {\n  document.querySelector('header, body').classList.remove('active');\n});\n\n/*-------------------------------------------------------------------------------\r\n    Form\r\n-------------------------------------------------------------------------------*/\n\n\nvar contactForm = document.querySelector('#ajaxForm');\n\ncontactForm.addEventListener('submit', function (e) {\n  e.preventDefault();\n\n  // const formMessage = document.querySelector('#form-message');\n  // formMessage.fadeOut();\n\n  var url = 'https://formcarry.com/s/SyJGIGvZ7';\n  var data = form_serialize__WEBPACK_IMPORTED_MODULE_2___default()(e.target);\n  console.log(data);\n  /*\r\n    const request = new XMLHttpRequest();\r\n    request.open('POST', url, true);\r\n    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');\r\n    request.send(data);\r\n  */\n\n  fetch(url, {\n    method: 'POST', // or 'PUT'\n    body: JSON.stringify(data), // data can be `string` or {object}!\n    headers: {\n      'Content-Type': 'application/json'\n    }\n  }).then(function (res) {\n    return res.json();\n  }).catch(function (error) {\n    return console.error('Error:', error);\n  }).then(function (response) {\n    return console.log('Success:', response);\n  });\n\n  /*$.ajax({\r\n    type: 'POST',\r\n    dataType: 'json',\r\n    url: 'https://formcarry.com/s/SyJGIGvZ7',\r\n    data: $(this).serialize(),\r\n    success: function (response) {\r\n      if (response.status == \"success\") {\r\n        formMessage.html('I received your submission, thank you!');\r\n        formMessage.fadeIn();\r\n      } else {\r\n        formMessage.html('An error occured: ' + response.message);\r\n        formMessage.fadeIn();\r\n      }\r\n    }\r\n  });*/\n});\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ })
 
