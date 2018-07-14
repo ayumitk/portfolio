@@ -79,16 +79,25 @@ contactForm.addEventListener('submit', (e) => {
 
   const url = 'https://formcarry.com/s/SyJGIGvZ7';
   const data = serialize(e.target);
+  console.log(data);
+  /*
+    const request = new XMLHttpRequest();
+    request.open('POST', url, true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.send(data);
+  */
 
-  fetch(url, {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(data), // data can be `string` or {object}!
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .catch(error => console.error('Error:', error))
-    .then(response => console.log('Success:', response));
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+
+  fetch(url, options).catch(err => {
+    console.error('Request failed', err)
+  })
 
 
   /*$.ajax({
