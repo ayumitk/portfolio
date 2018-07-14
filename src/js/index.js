@@ -79,13 +79,6 @@ contactForm.addEventListener('submit', (e) => {
 
   const url = 'https://formcarry.com/s/SyJGIGvZ7';
   const data = serialize(e.target);
-  console.log(data);
-  /*
-    const request = new XMLHttpRequest();
-    request.open('POST', url, true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    request.send(data);
-  */
 
   fetch(url, {
       method: 'POST', // or 'PUT'
