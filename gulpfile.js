@@ -1,11 +1,6 @@
 // Gulp
 const gulp = require('gulp');
 
-// Webpack
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
-const webpackConfig = require('./webpack.config');
-
 // Local server
 const browserSync = require('browser-sync').create();
 
@@ -19,16 +14,19 @@ const sass = require('gulp-sass');
 // Images
 const imagemin = require('gulp-imagemin');
 
+// Webpack
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const webpackConfig = require('./webpack.config');
+
 
 // --------------------------------------------------------------------
 // Tasks
 // --------------------------------------------------------------------
 
 
-
 // Local Server + Watch
-gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
-
+gulp.task('server', ['webpack', 'sass', 'images', 'html'], () => {
   browserSync.init({
     server: './docs/',
     cors: true
@@ -41,17 +39,15 @@ gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
 });
 
 // Webpack
-gulp.task('webpack', function () {
-  return webpackStream(webpackConfig, webpack)
-    .pipe(gulp.dest('./docs/js'))
+gulp.task('webpack', () => webpackStream(webpackConfig, webpack)
+  .pipe(gulp.dest('./docs/js'))
 
-    .pipe(browserSync.reload({
-      stream: true,
-    }));
-});
+  .pipe(browserSync.reload({
+    stream: true,
+  })));
 
 // Copy HTML
-gulp.task('html', function () {
+gulp.task('html', () => {
   gulp.src('./src/*.html')
     .pipe(gulp.dest('./docs/'))
 
@@ -61,33 +57,31 @@ gulp.task('html', function () {
 });
 
 // Compile sass into CSS & Auto-inject into browsers
-gulp.task('sass', function () {
-  return gulp.src('src/scss/*.scss')
+gulp.task('sass', () => gulp.src('src/scss/*.scss')
 
-    .pipe(plumber({
-      errorHandler: notify.onError('Error: <%= error.message %>')
-    }))
+  .pipe(plumber({
+    errorHandler: notify.onError('Error: <%= error.message %>')
+  }))
 
-    .pipe(autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
+  .pipe(autoprefixer({
+    browsers: ['last 2 versions'],
+    cascade: false
+  }))
 
-    .pipe(csscomb())
+  .pipe(csscomb())
 
-    .pipe(sass({
-      outputStyle: 'compressed'
-    }).on('error', sass.logError))
+  .pipe(sass({
+    outputStyle: 'compressed'
+  }).on('error', sass.logError))
 
-    .pipe(gulp.dest('./docs/css'))
+  .pipe(gulp.dest('./docs/css'))
 
-    .pipe(browserSync.reload({
-      stream: true,
-    }));
-});
+  .pipe(browserSync.reload({
+    stream: true,
+  })));
 
 // Image Optimize
-gulp.task('images', function () {
+gulp.task('images', () => {
   gulp.src('src/images/*.{png,jpg,svg}')
 
     .pipe(imagemin([
@@ -100,11 +94,11 @@ gulp.task('images', function () {
       }),
       imagemin.svgo({
         plugins: [{
-            removeViewBox: true
-          },
-          {
-            cleanupIDs: false
-          }
+          removeViewBox: true
+        },
+        {
+          cleanupIDs: false
+        }
         ]
       })
     ]))
