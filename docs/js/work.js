@@ -56,7 +56,7 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		"index": 0
+/******/ 		"work": 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -147,22 +147,22 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push(["./src/js/index.js","common"]);
+/******/ 	deferredModules.push(["./src/js/work.js","common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/index.js":
-/*!*************************!*\
-  !*** ./src/js/index.js ***!
-  \*************************/
+/***/ "./src/js/work.js":
+/*!************************!*\
+  !*** ./src/js/work.js ***!
+  \************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! smoothscroll-polyfill */ \"./node_modules/smoothscroll-polyfill/dist/smoothscroll.js\");\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var form_serialize__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! form-serialize */ \"./node_modules/form-serialize/index.js\");\n/* harmony import */ var form_serialize__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(form_serialize__WEBPACK_IMPORTED_MODULE_2__);\n// Behance projects list\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_0__[\"behanceUser\"])();\n\n/*-------------------------------------------------------------------------------\r\n    Smooth Scroll\r\n-------------------------------------------------------------------------------*/\n\n\nsmoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_1___default.a.polyfill();\n\n// Scroll to section when nav is clicked\nvar navLinks = document.querySelectorAll('header a');\n\nArray.from(navLinks).forEach(function (el) {\n\n  el.addEventListener('click', function (e) {\n\n    e.preventDefault();\n\n    var heading = event.target.getAttribute('href');\n    document.querySelector(heading).scrollIntoView({\n      behavior: 'smooth'\n    });\n\n    // Hide the menu once clicked if mobile\n    if ($('header').hasClass('active')) {\n      $('header, body').removeClass('active');\n    }\n  });\n});\n\n// Scroll to top\ndocument.querySelector('#to-top').addEventListener('click', function (e) {\n  window.scroll({\n    top: 0,\n    left: 0,\n    behavior: 'smooth'\n  });\n});\n\n// Scroll to first element\ndocument.querySelector('#lead-down span').addEventListener('click', function (e) {\n  document.querySelector('#about').scrollIntoView({\n    behavior: 'smooth'\n  });\n});\n\n/*-------------------------------------------------------------------------------\r\n    Mobile Nav\r\n-------------------------------------------------------------------------------*/\n// Open mobile menu\ndocument.querySelector('#mobile-menu-open').addEventListener('click', function (e) {\n  document.querySelector('header, body').classList.add('active');\n});\n\n// Close mobile menu\ndocument.querySelector('#mobile-menu-close').addEventListener('click', function (e) {\n  document.querySelector('header, body').classList.remove('active');\n});\n\n/*-------------------------------------------------------------------------------\r\n    Form\r\n-------------------------------------------------------------------------------*/\n\n\nvar contactForm = document.querySelector('#ajaxForm');\n\ncontactForm.addEventListener('submit', function (e) {\n  e.preventDefault();\n\n  // const formMessage = document.querySelector('#form-message');\n  // formMessage.fadeOut();\n\n  var url = 'https://formcarry.com/s/SyJGIGvZ7';\n  var data = form_serialize__WEBPACK_IMPORTED_MODULE_2___default()(e.target);\n  console.log(data);\n  /*\r\n    const request = new XMLHttpRequest();\r\n    request.open('POST', url, true);\r\n    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');\r\n    request.send(data);\r\n  */\n\n  var options = {\n    method: 'POST',\n    headers: {\n      'Content-Type': 'application/json'\n    },\n    body: JSON.stringify(data)\n  };\n\n  fetch(url, options).catch(function (err) {\n    console.error('Request failed', err);\n  });\n\n  /*$.ajax({\r\n    type: 'POST',\r\n    dataType: 'json',\r\n    url: 'https://formcarry.com/s/SyJGIGvZ7',\r\n    data: $(this).serialize(),\r\n    success: function (response) {\r\n      if (response.status == \"success\") {\r\n        formMessage.html('I received your submission, thank you!');\r\n        formMessage.fadeIn();\r\n      } else {\r\n        formMessage.html('An error occured: ' + response.message);\r\n        formMessage.fadeIn();\r\n      }\r\n    }\r\n  });*/\n});\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _svg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_svg */ \"./src/js/_svg.js\");\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n// SVG include\n\n\n// Behance project\n\n\nObject(_svg__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_1__[\"behanceProject\"])();\n\n//# sourceURL=webpack:///./src/js/work.js?");
 
 /***/ })
 

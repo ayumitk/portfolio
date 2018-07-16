@@ -56,7 +56,7 @@
 /******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 	// Promise = chunk loading, 0 = chunk loaded
 /******/ 	var installedChunks = {
-/******/ 		"work": 0
+/******/ 		"index": 0
 /******/ 	};
 /******/
 /******/ 	var deferredModules = [];
@@ -147,22 +147,34 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push(["./src/js/work.js","common"]);
+/******/ 	deferredModules.push(["./src/js/index.js","common"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/js/work.js":
-/*!************************!*\
-  !*** ./src/js/work.js ***!
-  \************************/
+/***/ "./src/js/_formcarry.js":
+/*!******************************!*\
+  !*** ./src/js/_formcarry.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return formcarry; });\nvar _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i[\"return\"]) _i[\"return\"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError(\"Invalid attempt to destructure non-iterable instance\"); } }; }();\n\n/*-------------------------------------------------------------------------------\r\n    formcarry.\r\n-------------------------------------------------------------------------------*/\n\nfunction formcarry() {\n  var contactForm = document.querySelector('#ajaxForm');\n\n  contactForm.addEventListener('submit', function (e) {\n    e.preventDefault();\n\n    var formMessage = document.querySelector('#form-message');\n    formMessage.style.display = 'none';\n\n    var url = 'https://formcarry.com/s/SyJGIGvZ7';\n    var form = document.forms.formcarry;\n    var formData = new FormData(form);\n    var data = {};\n\n    var _iteratorNormalCompletion = true;\n    var _didIteratorError = false;\n    var _iteratorError = undefined;\n\n    try {\n      for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n        var _ref = _step.value;\n\n        var _ref2 = _slicedToArray(_ref, 2);\n\n        var key = _ref2[0];\n        var prop = _ref2[1];\n\n        data[key] = prop;\n      }\n    } catch (err) {\n      _didIteratorError = true;\n      _iteratorError = err;\n    } finally {\n      try {\n        if (!_iteratorNormalCompletion && _iterator.return) {\n          _iterator.return();\n        }\n      } finally {\n        if (_didIteratorError) {\n          throw _iteratorError;\n        }\n      }\n    }\n\n    var method = 'POST';\n    var headers = {\n      Accept: 'application/json',\n      'Content-Type': 'application/json'\n    };\n    var body = JSON.stringify(data);\n\n    fetch(url, {\n      method: method,\n      headers: headers,\n      body: body\n    }).then(function (res) {\n      return res.json();\n    }).catch(function (error) {\n      formMessage.innerHTML = 'An error occured: ' + error.message + '.';\n      formMessage.style.display = 'block';\n    }).then(function (response) {\n      formMessage.innerHTML = response.title + ' ' + response.message + '.';\n      formMessage.style.display = 'block';\n    });\n  });\n}\n\n//# sourceURL=webpack:///./src/js/_formcarry.js?");
+
+/***/ }),
+
+/***/ "./src/js/index.js":
+/*!*************************!*\
+  !*** ./src/js/index.js ***!
+  \*************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n// Behance project\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_0__[\"behanceProject\"])();\n\n//# sourceURL=webpack:///./src/js/work.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! smoothscroll-polyfill */ \"./node_modules/smoothscroll-polyfill/dist/smoothscroll.js\");\n/* harmony import */ var smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(smoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_svg */ \"./src/js/_svg.js\");\n/* harmony import */ var _behance__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_behance */ \"./src/js/_behance.js\");\n/* harmony import */ var _formcarry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_formcarry */ \"./src/js/_formcarry.js\");\n// SVG include\n\n\n\n// Smooth Scroll\n\n// Behance projects list\n\n\n// Formcarry\n\n\nObject(_svg__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\nsmoothscroll_polyfill__WEBPACK_IMPORTED_MODULE_0___default.a.polyfill();\n\nObject(_behance__WEBPACK_IMPORTED_MODULE_2__[\"behanceUser\"])();\n\nObject(_formcarry__WEBPACK_IMPORTED_MODULE_3__[\"default\"])();\n\n/*-------------------------------------------------------------------------------\r\n    Smooth Scroll\r\n-------------------------------------------------------------------------------*/\n// Scroll to section when nav is clicked\nvar navLinks = document.querySelectorAll('header a');\n\nArray.from(navLinks).forEach(function (el) {\n  el.addEventListener('click', function (e) {\n    e.preventDefault();\n\n    var heading = e.target.getAttribute('href');\n    document.querySelector(heading).scrollIntoView({\n      behavior: 'smooth'\n    });\n\n    // Hide the menu once clicked if mobile\n    /* if (document.querySelector('header').hasClass('active')) {\r\n      document.querySelector('header, body').removeClass('active');\r\n    } */\n  });\n});\n\n// Scroll to top\ndocument.querySelector('#to-top').addEventListener('click', function () {\n  window.scroll({\n    top: 0,\n    left: 0,\n    behavior: 'smooth'\n  });\n});\n\n// Scroll to first element\ndocument.querySelector('#lead-down span').addEventListener('click', function () {\n  document.querySelector('#about').scrollIntoView({\n    behavior: 'smooth'\n  });\n});\n\n/*-------------------------------------------------------------------------------\r\n    Mobile Nav\r\n-------------------------------------------------------------------------------*/\n// Open mobile menu\ndocument.querySelector('#mobile-menu-open').addEventListener('click', function () {\n  document.querySelector('header, body').classList.add('active');\n});\n\n// Close mobile menu\ndocument.querySelector('#mobile-menu-close').addEventListener('click', function () {\n  document.querySelector('header, body').classList.remove('active');\n});\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ })
 

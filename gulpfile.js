@@ -1,10 +1,10 @@
 // Gulp
-const gulp = require("gulp");
+const gulp = require('gulp');
 
 // Webpack
-const webpack = require("webpack");
-const webpackStream = require("webpack-stream");
-const webpackConfig = require("./webpack.config");
+const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+const webpackConfig = require('./webpack.config');
 
 // Local server
 const browserSync = require('browser-sync').create();
@@ -29,87 +29,87 @@ const imagemin = require('gulp-imagemin');
 // Local Server + Watch
 gulp.task('server', ['webpack', 'sass', 'images', 'html'], function () {
 
-	browserSync.init({
-		server: "./",
-		cors: true
-	});
+  browserSync.init({
+    server: './docs/',
+    cors: true
+  });
 
-	gulp.watch("src/scss/*.scss", ['sass']);
-	gulp.watch("src/js/*.js", ['webpack']);
-	gulp.watch("src/images/*.{png,jpg,svg}", ['images']);
-	gulp.watch("src/*.html", ['html']);
+  gulp.watch('src/scss/*.scss', ['sass']);
+  gulp.watch('src/js/*.js', ['webpack']);
+  gulp.watch('src/images/*.{png,jpg,svg}', ['images']);
+  gulp.watch('src/*.html', ['html']);
 });
 
 // Webpack
 gulp.task('webpack', function () {
-	return webpackStream(webpackConfig, webpack)
-		.pipe(gulp.dest("./js"))
+  return webpackStream(webpackConfig, webpack)
+    .pipe(gulp.dest('./docs/js'))
 
-		.pipe(browserSync.reload({
-			stream: true,
-		}));
+    .pipe(browserSync.reload({
+      stream: true,
+    }));
 });
 
 // Copy HTML
 gulp.task('html', function () {
-	gulp.src('./src/*.html')
-		.pipe(gulp.dest('./'))
+  gulp.src('./src/*.html')
+    .pipe(gulp.dest('./docs/'))
 
-		.pipe(browserSync.reload({
-			stream: true,
-		}));
+    .pipe(browserSync.reload({
+      stream: true,
+    }));
 });
 
 // Compile sass into CSS & Auto-inject into browsers
 gulp.task('sass', function () {
-	return gulp.src("src/scss/*.scss")
+  return gulp.src('src/scss/*.scss')
 
-		.pipe(plumber({
-			errorHandler: notify.onError("Error: <%= error.message %>")
-		}))
+    .pipe(plumber({
+      errorHandler: notify.onError('Error: <%= error.message %>')
+    }))
 
-		.pipe(autoprefixer({
-			browsers: ['last 2 versions'],
-			cascade: false
-		}))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
 
-		.pipe(csscomb())
+    .pipe(csscomb())
 
-		.pipe(sass({
-			outputStyle: 'compressed'
-		}).on('error', sass.logError))
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }).on('error', sass.logError))
 
-		.pipe(gulp.dest("./css"))
+    .pipe(gulp.dest('./docs/css'))
 
-		.pipe(browserSync.reload({
-			stream: true,
-		}));
+    .pipe(browserSync.reload({
+      stream: true,
+    }));
 });
 
 // Image Optimize
 gulp.task('images', function () {
-	gulp.src('src/images/*.{png,jpg,svg}')
+  gulp.src('src/images/*.{png,jpg,svg}')
 
-		.pipe(imagemin([
+    .pipe(imagemin([
 
-			imagemin.jpegtran({
-				progressive: true
-			}),
-			imagemin.optipng({
-				optimizationLevel: 5
-			}),
-			imagemin.svgo({
-				plugins: [{
-						removeViewBox: true
-					},
-					{
-						cleanupIDs: false
-					}
-				]
-			})
-		]))
+      imagemin.jpegtran({
+        progressive: true
+      }),
+      imagemin.optipng({
+        optimizationLevel: 5
+      }),
+      imagemin.svgo({
+        plugins: [{
+            removeViewBox: true
+          },
+          {
+            cleanupIDs: false
+          }
+        ]
+      })
+    ]))
 
-		.pipe(gulp.dest('./images'));
+    .pipe(gulp.dest('./docs/images'));
 });
 
 gulp.task('default', ['server']);
