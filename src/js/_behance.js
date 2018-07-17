@@ -28,7 +28,7 @@ export function behanceUser() {
         </div>`;
     }
 
-    // // Set all project contents to html
+    // Set all project contents to html
     document.getElementById('behance-list').innerHTML = resultHTML;
   }
 

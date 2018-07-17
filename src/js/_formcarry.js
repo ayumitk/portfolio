@@ -8,8 +8,16 @@ export default function formcarry() {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const formMessage = document.querySelector('#form-message');
-    formMessage.style.display = 'none';
+    const submitText = document.querySelector('#submit-text');
+    const iconProcessing = document.querySelector('#submit-processing');
+    const iconSuccess = document.querySelector('#submit-success');
+    const iconError = document.querySelector('#submit-error');
+
+    iconSuccess.style.display = 'none';
+    iconError.style.display = 'none';
+    iconProcessing.style.display = 'block';
+    submitText.innerHTML = 'Sending...';
+
 
     const url = 'https://formcarry.com/s/SyJGIGvZ7';
     const form = document.forms.formcarry;
@@ -19,6 +27,10 @@ export default function formcarry() {
     for (const [key, prop] of formData) {
       data[key] = prop;
     }
+
+    /* Array.from(formData).forEach((key, prop) => {
+      data[key] = prop;
+    }); */
 
     const method = 'POST';
     const headers = {
@@ -32,13 +44,17 @@ export default function formcarry() {
       headers,
       body
     }).then(res => res.json())
-      .catch((error) => {
-        formMessage.innerHTML = `An error occured: ${error.message}.`;
-        formMessage.style.display = 'block';
-      })
+      // success!
       .then((response) => {
-        formMessage.innerHTML = `${response.title} ${response.message}.`;
-        formMessage.style.display = 'block';
+        iconProcessing.style.display = 'none';
+        iconSuccess.style.display = 'block';
+        submitText.innerHTML = `${response.title} ${response.message}.`;
+      })
+      // Error!
+      .catch((error) => {
+        iconProcessing.style.display = 'none';
+        iconError.style.display = 'block';
+        submitText.innerHTML = `An error occurred: ${error.message}.`;
       });
   });
 }
