@@ -19,7 +19,7 @@ export function behanceUser() {
 
     for (let i = 0, len = behanceData.length; i < len; i += 1) {
       resultHTML += `
-        <div class="col-4">
+        <div class="col-12 col-sm-6 col-md-4">
           <a href="work.html?projectID=${behanceData[i].id}">
             <div><img src="${behanceData[i].covers[404]}"></div>
             <h3>${projectTitle[i]}</h3>

@@ -1,7 +1,7 @@
 module.exports = {
   // 'production' => Enables optimizations including minification, scope hoisting and tree-shaking.
   // 'development' => Enables sourcemaps
-  mode: 'development',
+  mode: 'production',
 
   // Entry point
   entry: {
