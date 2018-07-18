@@ -14,6 +14,9 @@ const sass = require('gulp-sass');
 // Images
 const imagemin = require('gulp-imagemin');
 
+// HTML minify
+const htmlmin = require('gulp-htmlmin');
+
 // Webpack
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
@@ -46,14 +49,18 @@ gulp.task('webpack', () => webpackStream(webpackConfig, webpack)
     stream: true,
   })));
 
-// Copy HTML
+// HTML minify
 gulp.task('html', () => {
   gulp.src('./src/*.html')
-    .pipe(gulp.dest('./docs/'))
+    .pipe(htmlmin({
+      collapseWhitespace: true
+    }))
+    .pipe(gulp.dest('./docs/'));
+  /* .pipe(gulp.dest('./docs/'))
 
-    .pipe(browserSync.reload({
-      stream: true,
-    }));
+  .pipe(browserSync.reload({
+    stream: true,
+  })); */
 });
 
 // Compile sass into CSS & Auto-inject into browsers
