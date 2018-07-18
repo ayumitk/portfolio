@@ -55,12 +55,10 @@ gulp.task('html', () => {
     .pipe(htmlmin({
       collapseWhitespace: true
     }))
-    .pipe(gulp.dest('./docs/'));
-  /* .pipe(gulp.dest('./docs/'))
-
-  .pipe(browserSync.reload({
-    stream: true,
-  })); */
+    .pipe(gulp.dest('./docs/'))
+    .pipe(browserSync.reload({
+      stream: true,
+    }));
 });
 
 // Compile sass into CSS & Auto-inject into browsers
