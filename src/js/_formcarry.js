@@ -24,13 +24,9 @@ export default function formcarry() {
     const formData = new FormData(form);
     const data = {};
 
-    for (const [key, prop] of formData) {
+    formData.forEach((prop, key) => {
       data[key] = prop;
-    }
-
-    /* Array.from(formData).forEach((key, prop) => {
-      data[key] = prop;
-    }); */
+    });
 
     const method = 'POST';
     const headers = {

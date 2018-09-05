@@ -81,7 +81,7 @@ $text: #74808a;
 
 body {
   font-size: 16px;
-  &.active {
+  &.nav-active {
     overflow: hidden;
     z-index: -1;
   }
@@ -187,13 +187,13 @@ header {
       text-decoration: none;
     }
   }
-  &.active {
-    display: block;
-  }
   &.sticky {
     position: fixed;
     z-index: 999;
   }
+}
+body.nav-active header{
+  display: block;
 }
 
 #menu {

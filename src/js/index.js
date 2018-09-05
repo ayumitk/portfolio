@@ -27,10 +27,10 @@ scrollLead();
 -------------------------------------------------------------------------------*/
 // Open mobile menu
 document.querySelector('#mobile-menu-open').addEventListener('click', () => {
-  document.querySelectorAll('header, body').classList.add('active');
+  document.querySelector('body').classList.add('nav-active');
 });
 
 // Close mobile menu
 document.querySelector('#mobile-menu-close').addEventListener('click', () => {
-  document.querySelectorAll('header, body').classList.remove('active');
+  document.querySelector('body').classList.remove('nav-active');
 });

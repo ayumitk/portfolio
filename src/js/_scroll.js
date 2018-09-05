@@ -20,9 +20,9 @@ export function smoothScroll() {
       });
 
       // Hide the menu once clicked if mobile
-      const active = document.querySelector('header').classList.contains('active');
-      if (active) {
-        document.querySelectorAll('header, body').classList.remove('active');
+      const isActive = document.querySelector('body').classList.contains('nav-active');
+      if (isActive) {
+        document.querySelector('body').classList.remove('navactive');
       }
     });
   });

@@ -17,19 +17,21 @@ export function behanceUser() {
 
     let resultHTML = '';
 
-    for (let i = 0, len = behanceData.length; i < len; i += 1) {
+    // loop
+    behanceData.map((project, index) => {
       resultHTML += `
         <div class="col-12 col-sm-6 col-md-4">
-          <a href="work.html?projectID=${behanceData[i].id}">
-            <div><img src="${behanceData[i].covers[404]}"></div>
-            <h3>${projectTitle[i]}</h3>
-            <p>${behanceData[i].fields}</p>
+          <a href="work.html?projectID=${project.id}">
+            <div><img src="${project.covers[404]}"></div>
+            <h3>${projectTitle[index]}</h3>
+            <p>${project.fields}</p>
           </a>
         </div>`;
-    }
+      return false;
+    });
 
     // Set all project contents to html
-    document.getElementById('behance-list').innerHTML = resultHTML;
+    document.querySelector('#behance-list').innerHTML = resultHTML;
   }
 
   // If sessionStorage has a json data, use it.
@@ -42,7 +44,7 @@ export function behanceUser() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = behanceUserAPI;
-    document.getElementsByTagName('head')[0].appendChild(script);
+    document.querySelector('head').appendChild(script);
 
     // Callback function
     const callbackUser = (data) => {
@@ -86,26 +88,26 @@ export function behanceProject() {
 
     // Tools
     let tools = '';
-    for (let i = 0, len = behanceData.tools.length; i < len; i += 1) {
-      tools += `<li>${behanceData.tools[i].title}</li>`;
-    }
+    behanceData.tools.forEach((tool) => {
+      tools += `<li>${tool.title}</li>`;
+    });
     resultHTML += `
       <ul>${tools}</ul>`;
 
     // Modules
     let modules = '';
-    for (let i = 0, len = behanceData.modules.length; i < len; i += 1) {
-      if (behanceData.modules[i].type === 'image') {
-        modules += `<div><img src="${behanceData.modules[i].sizes[1400]}"></div>`;
-      } else if (behanceData.modules[i].type === 'text') {
-        modules += `${behanceData.modules[i].text}`;
+    behanceData.modules.forEach((content) => {
+      if (content.type === 'image') {
+        modules += `<div><img src="${content.sizes[1400]}"></div>`;
+      } else if (content.type === 'text') {
+        modules += `${content.text}`;
       }
-    }
+    });
     resultHTML += `
       <div>${modules}</div>`;
 
     // Set all project contents to html
-    document.getElementById('behance-project').innerHTML = resultHTML;
+    document.querySelector('#behance-project').innerHTML = resultHTML;
   }
 
   // If sessionStorage has a json data, use it.
@@ -118,7 +120,7 @@ export function behanceProject() {
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = behanceProjectAPI;
-    document.getElementsByTagName('head')[0].appendChild(script);
+    document.querySelector('head').appendChild(script);
 
     // Callback function
     const callbackProject = (data) => {
