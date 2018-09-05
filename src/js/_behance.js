@@ -18,7 +18,7 @@ export function behanceUser() {
     let resultHTML = '';
 
     // loop
-    behanceData.map((project, index) => {
+    behanceData.forEach((project, index) => {
       resultHTML += `
         <div class="col-12 col-sm-6 col-md-4">
           <a href="work.html?projectID=${project.id}">
@@ -27,7 +27,6 @@ export function behanceUser() {
             <p>${project.fields}</p>
           </a>
         </div>`;
-      return false;
     });
 
     // Set all project contents to html
